@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ChatMessageController;
+use App\Http\Controllers\ChatParticipantController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
@@ -21,3 +22,7 @@ Route::get('chats', [ChatController::class, 'index'])
 Route::post('chats', [ChatController::class, 'store'])
     ->middleware(['auth'])
     ->name('chats.store');
+
+Route::post('chats/{chat}/participants', [ChatParticipantController::class, 'store'])
+    ->middleware(['auth'])
+    ->name('chats.participants.store');
