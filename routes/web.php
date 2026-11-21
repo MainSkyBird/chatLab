@@ -23,6 +23,10 @@ Route::post('chats', [ChatController::class, 'store'])
     ->middleware(['auth'])
     ->name('chats.store');
 
+Route::get('chats/{chat}/participants', [ChatParticipantController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('chats.participants.index');
+
 Route::post('chats/{chat}/participants', [ChatParticipantController::class, 'store'])
     ->middleware(['auth'])
     ->name('chats.participants.store');

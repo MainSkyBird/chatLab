@@ -10,6 +10,20 @@ use Illuminate\Support\Facades\Gate;
 
 class ChatParticipantController extends Controller
 {
+    public function index(Chat $chat)
+    {
+        Gate::authorize('view', $chat);
+
+        $participants = $chat->users()
+            ->select('users.id', 'users.name')
+            ->orderBy('users.id')
+            ->get()->makeHidden(['pivot']);
+
+        return response()->json([
+            'data' => $participants,
+        ]);
+    }
+
     public function store(Request $request, Chat $chat)
     {
         Gate::authorize('add-participant', $chat);
